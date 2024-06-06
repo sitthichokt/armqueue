@@ -130,9 +130,11 @@ queue.database.dbGroup = 'armlog'
  database.tgdb.strictOn   = true 
  database.tgdb.pConnect   = false
 ```
-/**
+## Commands
+
+``` 
 * facebook_api คือชื่อคิวใช้อ้างอิงเมื่อเข้าถึง
-*  throw new \Exception('Simulated error for testing'); 
+* throw new \Exception('Simulated error for testing'); 
 
 สร้างไฟล์งาน ไฟล์ Facebook จะถูกสร้างที่ App\Jobs
 php spark queue:job Facebook
@@ -148,6 +150,7 @@ php spark queue:retry all -queue facebook_api
 
 ตรวจสอบงานที่ล้มเหลว ('งานที่ล้มเหลวจะถูกเก็บในตาราง queue_jobs_failed')
 php spark queue:failed -queue facebook_api
+```
 
 
 
