@@ -151,7 +151,34 @@ php spark queue:retry all -queue facebook_api
 ตรวจสอบงานที่ล้มเหลว ('งานที่ล้มเหลวจะถูกเก็บในตาราง queue_jobs_failed')
 php spark queue:failed -queue facebook_api
 ```
+## Create QueueResetStatus
+```php
+<?php
+//vendor\codeigniter4\queue\src\Commands\QueueResetStatus.php
+namespace CodeIgniter\Queue\Commands;
 
+use CodeIgniter\CLI\BaseCommand;
+use CodeIgniter\CLI\CLI;
+use CodeIgniter\Database\Config;
 
+class QueueResetStatus extends BaseCommand
+{
+    protected $group       = 'Queue';
+    protected $name        = 'queue:reset-status';
+    protected $description = 'Reset the status of in-progress jobs to pending.';
+
+    public function run(array $params)
+    {
+        $db = Config::connect();
+        $builder = $db->table('queue_jobs');
+        $builder->where('status', 1);
+        $builder->where('queue', 'facebook_api');
+        $builder->update(['status' => 0]);
+
+        CLI::write('Reset in-progress jobs to pending.', 'green');
+    }
+}
+
+```
 
 
