@@ -180,5 +180,44 @@ class QueueResetStatus extends BaseCommand
 }
 
 ```
+## Update Script QueueJobModel vendor\codeigniter4\queue\src\Models\QueueJobModel.php
+```php
+  private function setPriority(BaseBuilder $builder, array $priority): BaseBuilder
+    {
+        $builder->whereIn('priority', $priority);
+
+        if ($priority !== ['default']) {
+            if ($this->db->DBDriver === 'SQLite3' || $this->db->DBDriver === 'SQLSRV') {
+                $builder->orderBy(
+                    'CASE priority '
+                    . implode(
+                        ' ',
+                        array_map(static fn ($value, $key) => "WHEN '{$value}' THEN {$key}", $priority, array_keys($priority))
+                    )
+                    . ' END',
+                    '',
+                    false
+                );
+            } else {
+                $builder->orderBy(
+                    'FIELD(priority, '
+                    . implode(
+                        ',',
+                        array_map(static fn ($value) => "'{$value}'", $priority)
+                    )
+                    . ')',
+                    '',
+                    false
+                );
+            }
+        }
+
+        $builder
+            ->orderBy('available_at', 'asc')
+            ->orderBy('id', 'asc');
+
+        return $builder;
+    }
+```
 
 
