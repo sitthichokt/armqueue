@@ -1,19 +1,3 @@
-# CodeIgniter 4 Application Starter
-
-## What is CodeIgniter?
-
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
-
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
-
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
-
 ## Installation & updates
 
 `composer create-project codeigniter4/appstarter` then `composer update` whenever
@@ -23,46 +7,148 @@ When updating, check the release notes to see if there are any changes you might
 to your `app` folder. The affected files can be copied or merged from
 `vendor/codeigniter4/framework/app`.
 
+กรณอัพเดทเวอร์ชั่นมากกว่า 4.5<br>
+`cp vendor/codeigniter4/framework/public/index.php public/index.php`<br>
+`cp vendor/codeigniter4/framework/spark spark`
+
+เมื่อปรับใช้กับเซิร์ฟเวอร์ที่ใช้งานจริง<br>
+`composer install --no-dev`
+
+optimize composer <br>
+`composer dump-autoload --optimize`<br>
+`composer dump-autoload --classmap-authoritative`
+
+
 ## Setup
 
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
+```env
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
 
-## Important Change with index.php
+#CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+#--------------------------------------------------------------------
+# APP
+#--------------------------------------------------------------------
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+app.baseURL = 'https://localhost/testq/'
+ app.appTimezone = 'Asia/Bangkok'
+# If you have trouble with `.`, you could also use `_`.
+# app_baseURL = ''
+app.forceGlobalSecureRequests = true
+app.CSPEnabled = false
 
-**Please** read the user guide for a better explanation of how CI4 works!
+#--------------------------------------------------------------------
+# API
+#--------------------------------------------------------------------
 
-## Repository Management
+ armapi_secret_key             = ''
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+ # API BOT
+ LINEBOT_BASE_ENDPOINT_URL     = ''
+ LINEBOT_USER                  = ''
+ LINEBOT_PASS                  = ''
+ FACEBOOKBOT_BASE_ENDPOINT_URL = ''
+ FACEBOOKBOT_USER              = ''
+ FACEBOOKBOT_PASS              = ''
+ CHATBOT_BASE_ENDPOINT_URL     = ''
+ CHATBOT_USER                  = ''
+ CHATBOT_PASS                  = ''
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+ # ARMLINK
+ ARMLINK_HOST                  = ''
+ ARMLINK_APPID		       = ''
+ ARMLINK_ACCESSTOKEN	       = ''
+ # ARMLINK FB_review
+ FBRW_AGENTID 		       = ''
+ FBRW_ARMLINK_APPID 	       = ''
+ FBRW_ARMLINK_ACCESSTOKEN      = ''
 
-## Server Requirements
+ # facebook
+ FB_APPID      = ''
+ FB_APPSECRET  = ''
+ FB_APPVERTION = 'v18.0'
+ FB_APPTOKEN   = '|'
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+ # twittwr
+ TW_CONSUMER_KEY         = ''
+ TW_CONSUMER_SECRET      = ''
+ # twitter v2
+ TW_BASE_ENDPOINT_URL    = 'https://api.twitter.com/2/'
+ TW_CLIENT_ID            = ''
+ TW_CLIENT_SECRET        = ''
+ TW_REDIRECT_URL         = ''
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+# shoppee
+ SHOPEE_HOST          = 'https://partner.shopeemobile.com'
+ SHOPEE_PARTNER_KEY   = ''
+ SHOPEE_PARTNER_ID    = '' 
+ SHOPEE_WH_URL        = ''
 
-> [!WARNING]
-> The end of life date for PHP 7.4 was November 28, 2022.
-> The end of life date for PHP 8.0 was November 26, 2023.
-> If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> The end of life date for PHP 8.1 will be November 25, 2024.
+# lazada 
+ LAZADA_URL           = 'https://api.lazada.co.th/rest'
+ LAZADA_KEY           = ''
+ LAZADA_SECRET        = ''
 
-Additionally, make sure that the following extensions are enabled in your PHP:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+#--------------------------------------------------------------------
+# DATABASE
+#--------------------------------------------------------------------
+
+queue.defaultHandler = 'database'
+queue.database.dbGroup = 'armlog'
+
+ database.defaultGroup    = 'armlog'
+
+ database.armlog.hostname = 
+ database.armlog.database = 
+ database.armlog.username = 
+ database.armlog.password = 
+ database.armlog.DBDriver = SQLSRV
+ database.armlog.encrypt  = false
+ database.armlog.compress = true
+ database.armlog.DBDebug  = true
+ database.armlog.port     = ''
+ database.armlog.strictOn = true
+ database.armlog.pConnect = false
+
+
+ database.tgdb.hostname   = 
+ database.tgdb.database   = 
+ database.tgdb.username   = 
+ database.tgdb.password   = 
+ database.tgdb.DBDriver   = SQLSRV
+ database.tgdb.encrypt    = false
+ database.tgdb.compress   = true
+ database.tgdb.DBDebug    = true
+ database.tgdb.port       = ''
+ database.tgdb.strictOn   = true 
+ database.tgdb.pConnect   = false
+```
+/**
+* facebook_api คือชื่อคิวใช้อ้างอิงเมื่อเข้าถึง
+*  throw new \Exception('Simulated error for testing'); 
+
+สร้างไฟล์งาน ไฟล์ Facebook จะถูกสร้างที่ App\Jobs
+php spark queue:job Facebook
+
+สำหรับรันคิวงานโดยอ้างอิงชื่อคิว
+php spark queue:work facebook_api
+
+อัพเดทสถานะ กรณีที่ status คงค้างอยู่ที 1 จะอัพเดทกลับเป็น 0
+php spark queue:reset-status 
+
+กรณีที่มีงานที่ล้มเหลว ส่งกลับไปยังคิวอีกคั้ง
+php spark queue:retry all -queue facebook_api
+
+ตรวจสอบงานที่ล้มเหลว ('งานที่ล้มเหลวจะถูกเก็บในตาราง queue_jobs_failed')
+php spark queue:failed -queue facebook_api
+
+
+
+
